@@ -54,11 +54,38 @@ jobs:
           restore-keys: |
             gradle-${{ runner.os }}-
 
+      - name: Install Android SDK components (platform 35, build-tools 35.0.0)
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;35.0.0" >/dev/null
+
       - name: Build debug APK
-        run: gradle :app:assembleDebug --no-daemon --stacktrace
+        run: gradle :app:assembleDebug --no-daemon --stacktrace --info
 
       - name: Build unsigned release APK
-        run: gradle :app:assembleRelease --no-daemon --stacktrace
+        run: gradle :app:assembleRelease --no-daemon --stacktrace --info
+
+      - name: Dump build reports on failure
+        if: failure()
+        run: |
+          echo "::group::lint-results"
+          find app/build/reports -type f 2>/dev/null | head -50 || true
+          for f in $(find app/build/reports -name '*.txt' -o -name '*.html' 2>/dev/null | head -10); do
+            echo "===== $f ====="
+            cat "$f" 2>/dev/null | head -200 || true
+          done
+          echo "::endgroup::"
+
+      - name: Upload build outputs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-debug-output
+          path: |
+            app/build/reports/
+            app/build/outputs/logs/
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Upload debug APK
         if: always()

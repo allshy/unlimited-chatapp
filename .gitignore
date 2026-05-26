@@ -1,0 +1,42 @@
+# Gradle
+.gradle/
+build/
+**/build/
+local.properties
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.fleet/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Captures
+captures/
+
+# Keystore (NEVER commit these)
+*.jks
+*.keystore
+keystore.properties
+
+# Generated
+app/release/
+app/debug/
+*.apk
+*.aab
+
+# Logs
+*.log
+hs_err_pid*
+
+# Android Studio
+.cxx/
+output.json

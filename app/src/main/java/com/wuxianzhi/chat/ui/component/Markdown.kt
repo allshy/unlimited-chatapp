@@ -225,7 +225,7 @@ private fun splitIntoBlocks(src: String): List<Block> {
 
 private fun isTableRow(line: String): Boolean {
     val t = line.trim()
-    return t.startsWith("|") && t.contains("|", startIndex = 1)
+    return t.startsWith("|") && t.count { it == '|' } >= 2
 }
 
 private fun isTableSeparator(line: String): Boolean {

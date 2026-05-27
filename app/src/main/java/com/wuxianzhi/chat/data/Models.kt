@@ -31,32 +31,33 @@ data class ModelOption(
 )
 
 object DefaultModels {
-    // NVIDIA integrate.api.nvidia.com 上精选的 6 个模型 —— 按 "开放聊天 + 解锁友好 + 智能靠前" 排序。
-    // 想加自己用的：在 App 的"对话设置"里直接填任意模型 ID 即可，不必动这里。
+    // NVIDIA integrate.api.nvidia.com 上确认能跑的精选模型。
+    // 如果某个 ID 404，说明 NVIDIA 下架了 —— 去 https://build.nvidia.com 找替换品，
+    // 在 App"对话设置"里直接填新 ID 即可。
     val list = listOf(
         ModelOption(
             id = "deepseek-ai/deepseek-r1",
-            label = "🥇 DeepSeek R1 · 旗舰推理/中文最强",
+            label = "🥇 DeepSeek R1 · 推理/中文最强",
         ),
         ModelOption(
             id = "openai/gpt-oss-120b",
-            label = "🥈 GPT-OSS 120B · OpenAI 开源，prompt 服从度高",
+            label = "🥈 GPT-OSS 120B · prompt 服从度高",
         ),
         ModelOption(
-            id = "qwen/qwen3-235b-a22b",
-            label = "🥉 Qwen 3 235B · 中文写作细腻",
-        ),
-        ModelOption(
-            id = "nvidia/llama-3.3-nemotron-super-49b-v1",
-            label = "Nemotron Super 49B · 速度/质量甜点",
+            id = "meta/llama-3.1-405b-instruct",
+            label = "🥉 Llama 3.1 405B · 综合最强（慢）",
         ),
         ModelOption(
             id = "meta/llama-3.3-70b-instruct",
             label = "Llama 3.3 70B · 经典强基线",
         ),
         ModelOption(
-            id = "deepseek-ai/deepseek-r1-distill-llama-70b",
-            label = "R1-Distill 70B · R1 的快速版",
+            id = "nvidia/llama-3.1-nemotron-70b-instruct",
+            label = "Nemotron 70B · NVIDIA 调优",
+        ),
+        ModelOption(
+            id = "openai/gpt-oss-20b",
+            label = "GPT-OSS 20B · 同系列轻量快",
         ),
     )
     const val DEFAULT_ID = "deepseek-ai/deepseek-r1"

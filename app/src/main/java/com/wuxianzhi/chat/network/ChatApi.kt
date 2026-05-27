@@ -111,12 +111,20 @@ class ChatApi(
                 }
 
                 override fun onFailure(eventSource: EventSource, t: Throwable?, response: okhttp3.Response?) {
-                    val msg = buildString {
-                        append("请求失败")
-                        if (response != null) append("（HTTP ${response.code}）")
-                        val errBody = try { response?.body?.string() } catch (_: Throwable) { null }
-                        if (!errBody.isNullOrBlank()) append(": $errBody")
-                        else if (t != null) append(": ${t.message}")
+                    val code = response?.code
+                    val errBody = try { response?.body?.string() } catch (_: Throwable) { null }
+
+                    val msg = when (code) {
+                        404 -> "模型 ID 不存在或已下架（HTTP 404）。\n当前用的：$model\n去对话顶部 ⚙ → 模型，换一个或自己改 ID 试试。"
+                        401, 403 -> "API Key 无效或没权限（HTTP $code）。检查设置里的 Key。"
+                        429 -> "请求过快或额度用尽（HTTP 429）。等一下再试，或切到别的接口。"
+                        in 500..599 -> "上游服务器错误（HTTP $code）。换个模型或稍后重试。\n${errBody?.take(200).orEmpty()}"
+                        null -> "网络连接失败：${t?.message ?: "未知错误"}"
+                        else -> buildString {
+                            append("请求失败（HTTP $code）")
+                            if (!errBody.isNullOrBlank()) append(": ${errBody.take(300)}")
+                            else if (t != null) append(": ${t.message}")
+                        }
                     }
                     trySend(StreamEvent.Failure(msg))
                     close()

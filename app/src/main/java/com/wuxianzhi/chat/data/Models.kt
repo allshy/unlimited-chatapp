@@ -31,15 +31,33 @@ data class ModelOption(
 )
 
 object DefaultModels {
-    // NVIDIA integrate.api.nvidia.com hosts an OpenAI-compatible endpoint with many models.
-    // Pick whatever you have access to — these are stable, real model ids.
+    // NVIDIA integrate.api.nvidia.com 上精选的 6 个模型 —— 按 "开放聊天 + 解锁友好 + 智能靠前" 排序。
+    // 想加自己用的：在 App 的"对话设置"里直接填任意模型 ID 即可，不必动这里。
     val list = listOf(
-        ModelOption("deepseek-ai/deepseek-r1", "deepseek-r1"),
-        ModelOption("deepseek-ai/deepseek-r1-distill-llama-70b", "deepseek-r1-distill-70b"),
-        ModelOption("openai/gpt-oss-120b", "gpt-oss-120b"),
-        ModelOption("meta/llama-3.3-70b-instruct", "llama-3.3-70b"),
-        ModelOption("qwen/qwen2.5-coder-32b-instruct", "qwen2.5-coder-32b"),
-        ModelOption("nvidia/llama-3.1-nemotron-70b-instruct", "nemotron-70b"),
+        ModelOption(
+            id = "deepseek-ai/deepseek-r1",
+            label = "🥇 DeepSeek R1 · 旗舰推理/中文最强",
+        ),
+        ModelOption(
+            id = "openai/gpt-oss-120b",
+            label = "🥈 GPT-OSS 120B · OpenAI 开源，prompt 服从度高",
+        ),
+        ModelOption(
+            id = "qwen/qwen3-235b-a22b",
+            label = "🥉 Qwen 3 235B · 中文写作细腻",
+        ),
+        ModelOption(
+            id = "nvidia/llama-3.3-nemotron-super-49b-v1",
+            label = "Nemotron Super 49B · 速度/质量甜点",
+        ),
+        ModelOption(
+            id = "meta/llama-3.3-70b-instruct",
+            label = "Llama 3.3 70B · 经典强基线",
+        ),
+        ModelOption(
+            id = "deepseek-ai/deepseek-r1-distill-llama-70b",
+            label = "R1-Distill 70B · R1 的快速版",
+        ),
     )
     const val DEFAULT_ID = "deepseek-ai/deepseek-r1"
     const val DEFAULT_BASE_URL = "https://integrate.api.nvidia.com/v1"

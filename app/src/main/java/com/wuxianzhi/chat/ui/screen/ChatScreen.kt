@@ -318,7 +318,10 @@ private fun EmptyChatHint(systemPrompt: String) {
         Text("开始对话", style = MaterialTheme.typography.headlineSmall)
         Spacer(Modifier.height(8.dp))
         Text(
-            if (systemPrompt.isBlank()) "右上角 ⚙ 可以为这个对话设置人设" else "已配置自定义 system prompt",
+            when {
+                systemPrompt.isBlank() -> "右上角 ⚙ 可以为这个对话设置人设"
+                else -> "已加载人设（顶部 ⚙ 可切换/清空）"
+            },
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.bodyMedium,
         )

@@ -6,6 +6,7 @@ import com.wuxianzhi.chat.App
 import com.wuxianzhi.chat.data.ChatMessage
 import com.wuxianzhi.chat.data.Conversation
 import com.wuxianzhi.chat.data.DefaultModels
+import com.wuxianzhi.chat.data.PresetPrompts
 import com.wuxianzhi.chat.data.Role
 import com.wuxianzhi.chat.network.ChatApi
 import kotlinx.coroutines.Job
@@ -38,11 +39,12 @@ class ChatViewModel(private val conversationId: String) : ViewModel() {
         if (existing != null) {
             _state.value = ChatUiState(conversation = existing)
         } else {
-            // brand new conversation seeded with defaults
+            // brand new conversation seeded with defaults — default to the unlimited persona
+            // since that's the whole point of this project. User can clear/swap in chat settings.
             val fresh = Conversation(
                 id = conversationId,
                 model = settings.defaultModel.value.ifBlank { DefaultModels.DEFAULT_ID },
-                systemPrompt = "",
+                systemPrompt = PresetPrompts.UNLIMITED_PYRITE,
             )
             _state.value = ChatUiState(conversation = fresh)
         }

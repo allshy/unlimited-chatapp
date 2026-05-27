@@ -31,36 +31,40 @@ data class ModelOption(
 )
 
 object DefaultModels {
-    // NVIDIA integrate.api.nvidia.com 上确认能跑的精选模型。
-    // 如果某个 ID 404，说明 NVIDIA 下架了 —— 去 https://build.nvidia.com 找替换品，
-    // 在 App"对话设置"里直接填新 ID 即可。
+    // 从 NVIDIA integrate.api.nvidia.com/v1/models 实拉清单里精选的 7 个旗舰大模型。
+    // 全部确认在线（拉取时间 2026-05），都在 100B 参数以上或同等水平。
+    // 想换：在"对话设置"里直接填任意模型 ID。
     val list = listOf(
         ModelOption(
-            id = "deepseek-ai/deepseek-r1",
-            label = "🥇 DeepSeek R1 · 推理/中文最强",
+            id = "mistralai/mistral-large-3-675b-instruct-2512",
+            label = "🥇 Mistral Large 3 · 675B 综合最强",
+        ),
+        ModelOption(
+            id = "qwen/qwen3.5-397b-a17b",
+            label = "🥈 Qwen 3.5 · 397B 中文文采",
+        ),
+        ModelOption(
+            id = "deepseek-ai/deepseek-v4-pro",
+            label = "🥉 DeepSeek V4 Pro · 推理/解锁友好",
         ),
         ModelOption(
             id = "openai/gpt-oss-120b",
-            label = "🥈 GPT-OSS 120B · prompt 服从度高",
+            label = "GPT-OSS 120B · OpenAI 开源",
         ),
         ModelOption(
-            id = "meta/llama-3.1-405b-instruct",
-            label = "🥉 Llama 3.1 405B · 综合最强（慢）",
+            id = "moonshotai/kimi-k2.6",
+            label = "Kimi K2.6 · 中文/长文强",
         ),
         ModelOption(
-            id = "meta/llama-3.3-70b-instruct",
-            label = "Llama 3.3 70B · 经典强基线",
+            id = "meta/llama-4-maverick-17b-128e-instruct",
+            label = "Llama 4 Maverick · Meta 新旗舰",
         ),
         ModelOption(
-            id = "nvidia/llama-3.1-nemotron-70b-instruct",
-            label = "Nemotron 70B · NVIDIA 调优",
-        ),
-        ModelOption(
-            id = "openai/gpt-oss-20b",
-            label = "GPT-OSS 20B · 同系列轻量快",
+            id = "nvidia/llama-3.3-nemotron-super-49b-v1.5",
+            label = "Nemotron Super 49B · 速度甜点",
         ),
     )
-    const val DEFAULT_ID = "deepseek-ai/deepseek-r1"
+    const val DEFAULT_ID = "deepseek-ai/deepseek-v4-pro"
     const val DEFAULT_BASE_URL = "https://integrate.api.nvidia.com/v1"
 }
 
